@@ -80,6 +80,8 @@ fun RoleplayScreen(
     var inputName by remember { mutableStateOf("") }
     var inputUserName by remember { mutableStateOf("") }
     var inputSegmentA by remember { mutableStateOf("") }
+    var inputIntimacy by remember { mutableStateOf(50) }
+    var inputIsIntimacyAuto by remember { mutableStateOf(false) }
     var inputPromptOverride by remember { mutableStateOf("") }
     var inputTemp by remember { mutableStateOf(0.85f) }
     var inputTopP by remember { mutableStateOf(0.95f) }
@@ -153,6 +155,8 @@ fun RoleplayScreen(
             inputName = sChar.name
             inputUserName = sChar.userName
             inputSegmentA = sChar.segmentA
+            inputIntimacy = sChar.intimacyLevel
+            inputIsIntimacyAuto = sChar.isIntimacyAuto
             inputPromptOverride = sChar.customPromptOverride
             inputTemp = sChar.temperature
             inputTopP = sChar.topP
@@ -181,6 +185,8 @@ NEVER control, speak for, or dictate the actions of the user. Only describe your
 
 Keep your responses punchy and extremely natural. Drive the story forward. Never monologue internally.
             """.trimIndent()
+            inputIntimacy = 50
+            inputIsIntimacyAuto = false
             inputPromptOverride = "A relaxing sunset conversation on a peaceful mountain edge as cool wind blows."
             inputTemp = 0.85f
             inputTopP = 0.95f
@@ -504,6 +510,8 @@ Keep your responses punchy and extremely natural. Drive the story forward. Never
                                 onClick = { 
                                     isCreationMode = true 
                                     inputName = ""
+                                    inputIntimacy = 50
+                                    inputIsIntimacyAuto = false
                                 }
                             ) {
                                 Icon(Icons.Default.Add, contentDescription = "New preset", tint = activeAccentColor)
@@ -2278,6 +2286,7 @@ Keep your responses punchy and extremely natural. Drive the story forward. Never
                                             name = inputName,
                                             userName = inputUserName,
                                             segmentA = inputSegmentA,
+                                            intimacyLevel = inputIntimacy,
                                             customPromptOverride = inputPromptOverride,
                                             temperature = inputTemp,
                                             topP = inputTopP,
@@ -2300,6 +2309,7 @@ Keep your responses punchy and extremely natural. Drive the story forward. Never
                                                 name = inputName,
                                                 userName = inputUserName,
                                                 segmentA = inputSegmentA,
+                                                intimacyLevel = inputIntimacy,
                                                 customPromptOverride = inputPromptOverride,
                                                 temperature = inputTemp,
                                                 topP = inputTopP,

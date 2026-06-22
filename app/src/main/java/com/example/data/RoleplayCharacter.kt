@@ -9,6 +9,7 @@ data class RoleplayCharacter(
     val name: String,
     val userName: String,
     val segmentA: String, // Core humanoid rules
+    val intimacyLevel: Int, // 0 - 100
     val customPromptOverride: String, // Segment D
     val temperature: Float,
     val topP: Float,
@@ -23,5 +24,6 @@ data class RoleplayCharacter(
     val backgroundDim: Float = 0.5f, // Background dimming value from 0.0f (fully black) to 1.0f (no dimming)
     val charBubbleColor: Int = 0xFF25293E.toInt(), // Chat bubble companion color background
     val userTextColor: Int = 0xFFFFFFFF.toInt(), // User message text color
-    val charTextColor: Int = 0xFFFFFFFF.toInt() // Companion message text color
+    val charTextColor: Int = 0xFFFFFFFF.toInt(), // Companion message text color
+    val isIntimacyAuto: Boolean = false // Automatic intimacy level progression
 )

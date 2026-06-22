@@ -23,7 +23,9 @@ workflows:
       - name: Generate Gradle wrapper if missing
         script: |
           if [ ! -f gradlew ]; then
-            gradle wrapper
+            gradle wrapper --gradle-version 9.3.1
+          else
+            ./gradlew wrapper --gradle-version 9.3.1
           fi
           chmod +x gradlew
           

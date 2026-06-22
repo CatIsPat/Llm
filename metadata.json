@@ -1,0 +1,6 @@
+{
+  "name": "LLaMA Roleplay",
+  "description": "A premium high-fidelity roleplay simulator powered by LLaMA 3.1 8B on high-speed NVIDIA NIM endpoints.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

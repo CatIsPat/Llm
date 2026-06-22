@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Centered safe zone chat bubble -->
+    <path
+        android:fillColor="#B19DFF"
+        android:pathData="M30,30h48a6,6 0,0 1,6 6v30a6,6 0,0 1,-6 6h-34l-10,10v-10a6,6 0,0 1,-6 -6v-30a6,6 0,0 1,6 -6z" />
+    <!-- Outer shiny AI Stars in Neon Teal -->
+    <path
+        android:fillColor="#00FFCC"
+        android:pathData="M64,24l1.5,3.5l3.5,1.5l-3.5,1.5l-1.5,3.5l-1.5,-3.5l-3.5,-1.5l3.5,-1.5z
+                          M44,66l1,2.5l2.5,1l-2.5,1l-1,2.5l-1,-2.5l-2.5,-1l2.5,-1z" />
+    <!-- Mini face inside the bubble in Slate Black #12141C -->
+    <path
+        android:fillColor="#12141C"
+        android:pathData="M42,48m-2,0a2,2 0,1 1,4 0a2,2 0,1 1,-4 0 M66,48m-2,0a2,2 0,1 1,4 0a2,2 0,1 1,-4 0 M48,56q6,4 12,0"
+        android:strokeColor="#12141C"
+        android:strokeWidth="1.5"
+        android:strokeLineCap="round" />
+</vector>

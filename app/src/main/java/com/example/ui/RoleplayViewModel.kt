@@ -157,7 +157,6 @@ class RoleplayViewModel(private val repository: CharacterRepository) : ViewModel
         name: String,
         userName: String,
         segmentA: String,
-        intimacyLevel: Int,
         customPromptOverride: String,
         temperature: Float,
         topP: Float,
@@ -171,15 +170,13 @@ class RoleplayViewModel(private val repository: CharacterRepository) : ViewModel
         backgroundDim: Float = 0.5f,
         charBubbleColor: Int = 0xFF25293E.toInt(),
         userTextColor: Int = 0xFFFFFFFF.toInt(),
-        charTextColor: Int = 0xFFDCD6F7.toInt(),
-        isIntimacyAuto: Boolean = false
+        charTextColor: Int = 0xFFDCD6F7.toInt()
     ) {
         viewModelScope.launch {
             val newChar = RoleplayCharacter(
                 name = name,
                 userName = userName,
                 segmentA = segmentA,
-                intimacyLevel = intimacyLevel,
                 customPromptOverride = customPromptOverride,
                 temperature = temperature,
                 topP = topP,
@@ -193,8 +190,7 @@ class RoleplayViewModel(private val repository: CharacterRepository) : ViewModel
                 backgroundDim = backgroundDim,
                 charBubbleColor = charBubbleColor,
                 userTextColor = userTextColor,
-                charTextColor = charTextColor,
-                isIntimacyAuto = isIntimacyAuto
+                charTextColor = charTextColor
             )
             val newId = repository.insertCharacter(newChar)
             repository.selectCharacter(newId)

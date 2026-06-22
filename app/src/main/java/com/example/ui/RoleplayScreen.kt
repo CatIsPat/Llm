@@ -716,38 +716,6 @@ Keep your responses punchy and extremely natural. Drive the story forward. Never
 
                             Box(modifier = Modifier.weight(1f)) {
 
-
-                                // Real-time Floating Intimacy level badge in the top-right corner
-                                Box(
-                                    modifier = Modifier
-                                        .padding(14.dp)
-                                        .align(Alignment.TopEnd)
-                                        .clip(RoundedCornerShape(16.dp))
-                                        .background(Color(0xFF151824).copy(alpha = 0.85f))
-                                        .border(1.dp, activeAccentColor.copy(alpha = 0.4f), RoundedCornerShape(16.dp))
-                                        .clickable {
-                                            settingsSubTab = 0
-                                            viewModel.currentTab = 1
-                                        }
-                                        .padding(horizontal = 10.dp, vertical = 6.dp),
-                                    contentAlignment = Alignment.Center
-                                ) {
-                                    Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(4.dp)) {
-                                        Icon(
-                                            imageVector = Icons.Default.Favorite,
-                                            contentDescription = "Intimacy Level Bar",
-                                            tint = Color(0xFFFF486A),
-                                            modifier = Modifier.size(16.dp)
-                                        )
-                                        Text(
-                                            text = if (activeChar.isIntimacyAuto) "LV.${activeChar.intimacyLevel / 10} (Auto)" else "LV.${activeChar.intimacyLevel / 10}",
-                                            color = Color.White,
-                                            fontWeight = FontWeight.ExtraBold,
-                                            fontSize = 11.sp
-                                        )
-                                    }
-                                }
-
                                 // Conversation Chat Bubbles List
                                 LazyColumn(
                                     state = lazyListState,
@@ -1410,80 +1378,6 @@ Keep your responses punchy and extremely natural. Drive the story forward. Never
                                             ),
                                             modifier = Modifier.fillMaxWidth()
                                         )
-
-                                        Spacer(modifier = Modifier.height(16.dp))
-
-                                        Text(
-                                            text = "Humanoid Attachment (Intimacy Bar): $inputIntimacy / 100 (LV.${inputIntimacy / 10})",
-                                            color = activeAccentColor,
-                                            fontWeight = FontWeight.Bold,
-                                            style = MaterialTheme.typography.bodyMedium
-                                        )
-                                        Spacer(modifier = Modifier.height(4.dp))
-                                        Slider(
-                                            value = inputIntimacy.toFloat(),
-                                            onValueChange = { inputIntimacy = it.toInt() },
-                                            valueRange = 0f..100f,
-                                            colors = SliderDefaults.colors(
-                                                thumbColor = activeAccentColor,
-                                                activeTrackColor = activeAccentColor,
-                                                inactiveTrackColor = DarkBorder
-                                            ),
-                                            modifier = Modifier
-                                                .fillMaxWidth()
-                                                .testTag("intimacy_slider")
-                                        )
-
-                                        val intimacyDescription = when {
-                                            inputIntimacy < 30 -> "Intimacy Heuristics: Cold, professional, and formal."
-                                            inputIntimacy <= 70 -> "Intimacy Heuristics: Playful, caring, and warm attachment."
-                                            else -> "Intimacy Heuristics: Maximum attachment, sweet, and highly romantic."
-                                        }
-
-                                        Text(
-                                            text = intimacyDescription,
-                                            style = MaterialTheme.typography.labelSmall,
-                                            color = Color.LightGray,
-                                            fontStyle = FontStyle.Italic
-                                        )
-
-                                        Spacer(modifier = Modifier.height(12.dp))
-
-                                        Row(
-                                            modifier = Modifier
-                                                .fillMaxWidth()
-                                                .clip(RoundedCornerShape(8.dp))
-                                                .background(Color.White.copy(alpha = 0.04f))
-                                                .border(1.dp, activeAccentColor.copy(alpha = 0.15f), RoundedCornerShape(8.dp))
-                                                .padding(10.dp),
-                                            horizontalArrangement = Arrangement.SpaceBetween,
-                                            verticalAlignment = Alignment.CenterVertically
-                                        ) {
-                                            Column(modifier = Modifier.weight(1f)) {
-                                                Text(
-                                                    text = "Dynamic Intimacy progression (Auto)",
-                                                    color = Color.White,
-                                                    fontWeight = FontWeight.Bold,
-                                                    fontSize = 13.sp
-                                                )
-                                                Text(
-                                                     text = "Increases organically as you talk, syncing emotions.",
-                                                     color = Color.Gray,
-                                                     fontSize = 11.sp
-                                                )
-                                            }
-                                            Switch(
-                                                modifier = Modifier.testTag("auto_intimacy_switch"),
-                                                checked = inputIsIntimacyAuto,
-                                                onCheckedChange = { inputIsIntimacyAuto = it },
-                                                colors = SwitchDefaults.colors(
-                                                    checkedThumbColor = activeAccentColor,
-                                                    checkedTrackColor = activeAccentColor.copy(alpha = 0.4f),
-                                                    uncheckedThumbColor = Color.Gray,
-                                                    uncheckedTrackColor = DarkBorder
-                                                )
-                                            )
-                                        }
 
                                         Spacer(modifier = Modifier.height(16.dp))
 

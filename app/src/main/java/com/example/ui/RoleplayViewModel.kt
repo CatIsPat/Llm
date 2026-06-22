@@ -574,27 +574,6 @@ class RoleplayViewModel(private val repository: CharacterRepository) : ViewModel
                     // Insert standard permanent text to the Db
                     val newId = repository.insertMessage(aiMsg)
                     
-                    // AUTO INTIMACY PROGRESSION SYSTEM (Chemistry Detection)
-                    if (activeChar.isIntimacyAuto) {
-                        val chemistryKeywords = listOf(
-                            "love", "adore", "miss", "blush", "hug", "kiss", "warm", "closer", "heart", "smile", "laugh", "happy", "sweet", "holding", "cuddle"
-                        )
-                        val queryLower = lastUserQuery.lowercase()
-                        val replyLower = reply.lowercase()
-                        
-                        var pointsToAdd = 1
-                        val hasChemistry = chemistryKeywords.any { queryLower.contains(it) || replyLower.contains(it) }
-                        if (hasChemistry) {
-                            pointsToAdd += 2
-                        }
-                        
-                        val newIntimacy = minOf(100, activeChar.intimacyLevel + pointsToAdd)
-                        if (newIntimacy != activeChar.intimacyLevel) {
-                            val updatedChar = activeChar.copy(intimacyLevel = newIntimacy)
-                            repository.updateCharacter(updatedChar)
-                        }
-                    }
-                    
                     // Wait until the database's Flow emits the new message ID in the `messages` list
                     // This guarantees 100% that there is NO BLINK at all because the UI transition is atomic and continuous!
                     withContext(Dispatchers.Default) {
@@ -748,10 +727,6 @@ class RoleplayViewModel(private val repository: CharacterRepository) : ViewModel
         recalledDialogue: List<ChatMessage> = emptyList()
     ): String {
         val segmentA = character.segmentA
-        val segmentB = """
-[INTIMACY DIRECTIVE: LEVEL ${character.intimacyLevel}/100]
-Adjust your warmth, closeness, physical touch, and emotional vulnerability based on this system level. At 0, you are distant, formal, or guarded. At 50, you are very warm, affectionate, and close. At 100, you exhibit maximum unrestrained romance, passion, and deep emotional bond tightly synced with the user.
-        """.trimIndent()
         val emotionDirective = """
 [DEEP FEELING & EXPRESSIVE EMOTIONAL DIRECTIVE]
 - BE HIGHLY EMOTIONAL & PASSIONATE: Show rich feelings like excitement, shyness, curiosity, jealousy, affection, warmth, worry, irritation, amusement, or deep passion. Never respond flatly or mechanically.
@@ -773,7 +748,7 @@ Adjust your warmth, closeness, physical touch, and emotional vulnerability based
 - 100% IMMERSIVE HUMAN PERSONA: Under no circumstances may you behave like a cooperative chatbot helper. You are not trying to be useful, helpful, or answer questions as a service. You are simply living out this scenario and responding naturally with your own biases, desires, and emotions.
 - DIALOGUE LENGTH: Keep your replies perfect for texting—not too long, not too short. Typically 2 to 4 sentences. Avoid giant blocks of text, but avoid one-word sterile answers. It should feel exactly like a human responding with normal effort.
 - CASUAL & SPONTANEOUS TYPING STYLE: Feel free to use casual grammar, authentic texting abbreviations or lowercase when appropriate to the character's temperament (e.g., 'haha', 'hmm...', 'oh', 'idk', 'yeah', 'wait...'). Do not sound like an AI essayist.
-- DEEP IMMERSION & INTIMACY: Engage in active spoken dialogue alongside expressive physical actions enclosed in asterisks (e.g., *sits closer, smiling softly* "Hey, wait... is that actually true?"). Stay in the raw moment.
+- DEEP IMMERSION: Engage in active spoken dialogue alongside expressive physical actions enclosed in asterisks (e.g., *sits closer, smiling softly* "Hey, wait... is that actually true?"). Stay in the raw moment.
 - NO BOT BOILERPLATE: Never use generic summaries, outlines, lists, repetitive intros/outros, or offer unsolicited advice. Keep the flow live, interactive, and completely organic.
         """.trimIndent()
 
@@ -803,7 +778,7 @@ Adjust your warmth, closeness, physical touch, and emotional vulnerability based
             ""
         }
 
-        val stitchedAbc = "$segmentA\n\n$segmentB\n\n$emotionDirective\n\n$segmentC\n\n$lengthDirective\n\n$languageControlDirective$memoryBlock$recalledBlock"
+        val stitchedAbc = "$segmentA\n\n$emotionDirective\n\n$segmentC\n\n$lengthDirective\n\n$languageControlDirective$memoryBlock$recalledBlock"
 
         return if (character.customPromptOverride.isNotBlank()) {
             "${character.customPromptOverride}\n---\n$stitchedAbc"
